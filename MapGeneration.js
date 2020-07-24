@@ -184,24 +184,6 @@ function translateMtoB(m){
 }
 
 //////////Map Making
-function makeEmptyMap(){
-    window.activeMap = true;
-    let m = generateEmptyMatrix(10);
-    console.log(m.matrix.length);
-    window.matr = new matrixMax(10);
-    translateMtoB(m);
-}
-
-function makeHeroEmptyMap(){
-    window.activeMap = true;
-    let space = Math.floor(Math.random() * Math.floor(100));
-    let m = placeHeroEmpty(10,space);
-    window.hero = space;
-    window.matr = m;
-    // highlightHeroMovementRange(2);
-    translateMtoB(window.matr);
-}
-
 function borderWall(){
     let m = new matrixMax(10);
     for (let x = 0; x < 10; x++){
@@ -211,28 +193,21 @@ function borderWall(){
         m.set(x*10+9,'v')
     }
     window.matr = m;
+    randomizeHeroLocationBorderWall();
     translateMtoB(window.matr);
 }
 
-function randomizeHeroLocation(){
-    let space = Math.floor(Math.random() * Math.floor(100));
-    window.hero = space;
-}
-
-function randomizeExit(){
-    while(true){
+function randomizeHeroLocationBorderWall(){
+    while (true){
         let space = Math.floor(Math.random() * Math.floor(100));
-        if (window.hero == space){}
-        else{
-            return space;
+        window.hero = space;
+        if (window.matr.get(space) != 'v'){
+            window.matr.set(space,'H');
+            return;
         }
     }
 }
 
-function makeComplexMapHero(){
- // k represents viable path distance
-    randomizeHeroLocation();
-}
 
 /////KEYPRESS
 
