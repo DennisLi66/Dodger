@@ -202,6 +202,18 @@ function makeHeroEmptyMap(){
     translateMtoB(window.matr);
 }
 
+function borderWall(){
+    let m = new matrixMax(10);
+    for (let x = 0; x < 10; x++){
+        m.set(x,'v');
+        m.set(x+90,'v');
+        m.set(x*10,'v');
+        m.set(x*10+9,'v')
+    }
+    window.matr = m;
+    translateMtoB(window.matr);
+}
+
 function randomizeHeroLocation(){
     let space = Math.floor(Math.random() * Math.floor(100));
     window.hero = space;
@@ -253,25 +265,25 @@ function moveHero(distance){
     if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) != 'v'    ){
         //rewrite herospace and distance;
         // console.log(distance);
-        window.matr.set(window.hero,'v');
+        window.matr.set(window.hero,'0');
         window.hero -= 1;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
     if ((distance == -10) && (window.hero >= 10)  && (window.matr.get(window.hero-10)) != 'v'){
-        window.matr.set(window.hero,'v');
+        window.matr.set(window.hero,'0');
         window.hero -= 10;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
     if ((distance == 1) && ((1 + window.hero) % 10 != 0) && (window.matr.get(window.hero+1)) != 'v'){
-        window.matr.set(window.hero,'v');
+        window.matr.set(window.hero,'0');
         window.hero += 1;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
     if ((distance == 10) && (window.hero < 90) && (window.matr.get(window.hero+10)) != 'v'){
-        window.matr.set(window.hero,'v');
+        window.matr.set(window.hero,'0');
         window.hero += 10;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
