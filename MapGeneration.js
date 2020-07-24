@@ -183,7 +183,7 @@ function translateMtoB(m){
     }
 }
 
-
+//////////Map Making
 function makeEmptyMap(){
     window.activeMap = true;
     let m = generateEmptyMatrix(10);
@@ -198,10 +198,29 @@ function makeHeroEmptyMap(){
     let m = placeHeroEmpty(10,space);
     window.hero = space;
     window.matr = m;
-    highlightHeroMovementRange(2);
+    // highlightHeroMovementRange(2);
     translateMtoB(window.matr);
 }
 
+function randomizeHeroLocation(){
+    let space = Math.floor(Math.random() * Math.floor(100));
+    window.hero = space;
+}
+
+function randomizeExit(){
+    while(true){
+        let space = Math.floor(Math.random() * Math.floor(100));
+        if (window.hero == space){}
+        else{
+            return space;
+        }
+    }
+}
+
+function makeComplexMapHero(){
+ // k represents viable path distance
+    randomizeHeroLocation();
+}
 
 /////KEYPRESS
 
@@ -231,7 +250,7 @@ function moveHero(distance){
     if ((distance != 1) && (distance != -1) && (distance != 10) && (distance != -10)){
         return false;
     }
-    if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) == 'v'    ){
+    if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) != 'v'    ){
         //rewrite herospace and distance;
         // console.log(distance);
         window.matr.set(window.hero,'v');
@@ -239,19 +258,19 @@ function moveHero(distance){
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
-    if ((distance == -10) && (window.hero >= 10)  && (window.matr.get(window.hero-10)) == 'v'){
+    if ((distance == -10) && (window.hero >= 10)  && (window.matr.get(window.hero-10)) != 'v'){
         window.matr.set(window.hero,'v');
         window.hero -= 10;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
-    if ((distance == 1) && ((1 + window.hero) % 10 != 0) && (window.matr.get(window.hero+1)) == 'v'){
+    if ((distance == 1) && ((1 + window.hero) % 10 != 0) && (window.matr.get(window.hero+1)) != 'v'){
         window.matr.set(window.hero,'v');
         window.hero += 1;
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
-    if ((distance == 10) && (window.hero < 90) && (window.matr.get(window.hero+10)) == 'v'){
+    if ((distance == 10) && (window.hero < 90) && (window.matr.get(window.hero+10)) != 'v'){
         window.matr.set(window.hero,'v');
         window.hero += 10;
         window.matr.set(window.hero,'H');
