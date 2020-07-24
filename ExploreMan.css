@@ -1,0 +1,76 @@
+body{
+    background-color: beige;
+}
+#omniBoard{
+    background-color: white;
+    border: black 1px solid;
+    width: 700px;
+    height: 700px;
+    position: absolute;
+    left: 350px;
+    top: 50px
+}
+#leftDisplay{
+    background-color: blanchedalmond;
+    position: absolute;
+    top: 50px;
+    height: 700px;
+    width: 200px;
+    left: 75px;
+    border: black 1px solid;
+}
+#rightDisplay{
+    background-color: blanchedalmond;
+    position: absolute;
+    top: 50px;
+    height: 700px;
+    width: 350px;
+    right: 50px;
+    border: black 1px solid;  
+}
+#charPortrait{
+    background-color: black;
+    float: left;
+    height: 200px;
+    width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* space aesthetic */
+.oB10{
+    background-color: tan;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
+
+.oB10hero{
+    background-color: gold;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
+
+.oB10heroMovementRange{
+    background-color: #ccff99;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
