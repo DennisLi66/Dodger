@@ -25,7 +25,7 @@ body{
     top: 50px;
     height: 700px;
     width: 350px;
-    right: 50px;
+    left: 1100px;
     border: black 1px solid;  
 }
 #charPortrait{
@@ -67,7 +67,19 @@ body{
 }
 
 .oB10heroMovementRange{
-    background-color: #ccff99;
+    background-color: grey;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
+
+
+
+/* Enemies */
+.oB10LeftToRight{
+    background-color: darkcyan;
     width: 68px;
     height: 68px;
     border: black 1px solid;

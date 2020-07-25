@@ -1,3 +1,5 @@
+
+
 class matrixMax{
     constructor(x){
         this.matrix = [];
@@ -152,16 +154,6 @@ function randomlyGenerateBoard(brdSize,distance){
 
 }
 
-function generateEmptyMatrix(n){
-    return new matrixMax(n);
-}
-
-function placeHeroEmpty(n,s){
-    let x = new matrixMax(n);
-    x.set(s,'H');
-    return x;
-}
-
 function translateMtoB(m){
     if (m.matrix.length == 100){
         let toWrite = "";
@@ -201,6 +193,8 @@ function randomizeHeroLocationBorderWall(){
     while (true){
         let space = Math.floor(Math.random() * Math.floor(100));
         window.hero = space;
+        window.attackType = 1;
+        window.strike = false;
         if (window.matr.get(space) != 'v'){
             window.matr.set(space,'H');
             return;
@@ -263,4 +257,41 @@ function moveHero(distance){
         window.matr.set(window.hero,'H');
         translateMtoB(window.matr);
     }
+}
+
+///enemy spawn
+
+function spawnEnemy(){
+    //pick a random wall (not corner) and spawn an enemy there
+    let walls = [];
+    for (let x = 1; x < 9; x++){
+        walls.push(x);
+        walls.push(90+x);
+        walls.push(x*10)
+        walls.push(x*10+9)
+    }
+
+}
+
+function increaseDifficulty(){
+    //increase tempo speed and enemy variety?
+}
+
+//////////////////
+
+function clock(){
+    window.time = 0;
+    timeup();
+}
+
+function timeup(){
+    console.log(window.time);
+    window.time++;
+    setTimeout(timeup,33.3)
+}
+
+//time 
+function soTheGameBegins(){
+    //generate board
+    borderWall();
 }
