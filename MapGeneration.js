@@ -26,128 +26,6 @@ class matrixMax{
     set(id,state){
         this.matrix[id] = state;
     }
-    findStartsAndEnds(){
-        let toReturn = [[],[]];
-        for (let x = 0; x < this.matrix.length; x++){
-            if (this.matrix[x] == 2){
-                toReturn[0].push(x);
-            }
-            else if (this.matrix[x] == 3){
-                toReturn[1].push(x);
-            }
-        }
-        return toReturn;
-    }
-    traversal(starts){
-        let finalPaths = [];
-        let size = this.matrix.length;
-        console.log("Size is " + size);
-        for (let x = 0; x < starts.length; x++){
-            let traversed = new Set();
-            let paths = [];
-            let placeHolder = [];
-            paths.push([starts[x]]);
-            while (paths.length != 0){
-                for (let t = 0; t < paths.length; t++){
-                    ///look left, right, up, and down
-                    ///length of board is squareroot of 
-                    let y = paths[t];
-                    let num = y[y.length-1];
-                    ////move down
-                    if ((!(num >= (size-Math.sqrt(size)))) && !traversed.has(num + Math.sqrt(size))){
-                        //if obstacle
-                        if (this.matrix[num + Math.sqrt(size)] == 1){
-                            // continue;
-                        }
-                        else{
-                            let copy = y.slice(0);
-                            traversed.add(num);
-                            traversed.add(num + Math.sqrt(size));
-                            copy.push(num + Math.sqrt(size));
-                            //if exit : do
-                            if (this.matrix[num+Math.sqrt(size)] == 3){
-                                finalPaths.push(copy);
-                                paths = [];
-                                placeHolder = [];
-                                break;
-                            }
-                            placeHolder.push(copy);
-                             }
-                    }
-                    ///move up 
-                    // console.log(num);
-                    if (!traversed.has(num - Math.sqrt(size)) && !(num <= Math.sqrt(size))){
-                        if (this.matrix[num - Math.sqrt(size)] == 1){
-                            // continue;
-                        }
-                        else{
-                            let copy = y.slice(0);
-                            traversed.add(num);
-                            traversed.add(num - Math.sqrt(size));
-                            copy.push(num - Math.sqrt(size));
-                            //if exit : do
-                            if (this.matrix[num-Math.sqrt(size)] == 3){
-                                finalPaths.push(copy);
-                                paths = [];
-                                placeHolder = [];
-                                break;
-                            }
-                            placeHolder.push(copy);
-                          }
-                    }
-                    //moveleft
-                    if (!traversed.has(num - 1) && !(num % (Math.sqrt(size)) == 0)){
-                        if (this.matrix[num-1] == 1){
-
-                        }
-                        else{
-                            let copy = y.slice(0);
-                            traversed.add(num);
-                            traversed.add(num - 1);
-                            copy.push(num -1);
-                            //if exit : do
-                            if (this.matrix[num-1] == 3){
-                                finalPaths.push(copy);
-                                paths = [];
-                                placeHolder = [];
-                                break;
-                            }
-                            placeHolder.push(copy); 
-                        }
-                    }
-                    //moveRight
-                    if (!traversed.has(num + 1) && !((1 + num)%(Math.sqrt(size)) == 0)){
-                        if (this.matrix[num + 1] == 1){
-
-                        }
-                        else{
-                            let copy = y.slice(0);
-                            traversed.add(num);
-                            traversed.add(num + 1);
-                            copy.push(num +1);
-                            if (this.matrix[num+1] == 3){
-                                finalPaths.push(copy);
-                                paths = [];
-                                placeHolder = [];
-                                break;
-                            }
-                            placeHolder.push(copy);
-                        }
-                    }
-
-
-
-                }
-                paths = placeHolder;
-                placeHolder = [];
-                console.log(paths);
-            }
-            if (finalPaths.length <= x){
-                finalPaths.push(false);
-            }
-        }
-        return finalPaths;
-    }
 }
 
 function randomlyGenerateBoard(brdSize,distance){
@@ -166,6 +44,18 @@ function translateMtoB(m){
             }
             if (m.matrix[x] == 'v'){
                 toWrite += "<div class='oB10heroMovementRange' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'elr'){
+                toWrite += "<div class='oB10LeftToRight' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'erl'){
+                toWrite += "<div class='oB10RightToLeft' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'ebt'){
+                toWrite += "<div class='oB10BottomToTop' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'etb'){
+                toWrite += "<div class='oB10TopToBottom' id='" + x + "'></div>";
             }
         }
         document.getElementById("omniBoard").innerHTML = toWrite;
@@ -193,8 +83,6 @@ function randomizeHeroLocationBorderWall(){
     while (true){
         let space = Math.floor(Math.random() * Math.floor(100));
         window.hero = space;
-        window.attackType = 1;
-        window.strike = false;
         if (window.matr.get(space) != 'v'){
             window.matr.set(space,'H');
             return;
@@ -261,16 +149,43 @@ function moveHero(distance){
 
 ///enemy spawn
 
-function spawnEnemy(){
-    //pick a random wall (not corner) and spawn an enemy there
-    let walls = [];
-    for (let x = 1; x < 9; x++){
-        walls.push(x);
-        walls.push(90+x);
-        walls.push(x*10)
-        walls.push(x*10+9)
+class enemyController{
+    constructor(){
+        this.library = [0];
+        this.walls = [];
+        for (let x = 1; x < 9; x++){
+            this.walls.push(x);
+            this.walls.push(90+x);
+            this.walls.push(x*10)
+            this.walls.push(x*10+9)
+        }
     }
-
+    pickWallRandom(){
+        let wall = this.walls[Math.floor(Math.random() * Math.floor(this.walls.length))];
+        return wall;
+    }
+    setAttackRandom(){
+        // let rN = Math.floor(Math.random() * Math.floor(1) );
+        let rN = 1;
+        // console.log(rN);
+        if (rN == 1){
+            let wall = this.pickWallRandom();
+            // console.log(wall);
+            if (wall < 10){
+                window.matr.set(wall,'etb');
+            }
+            if  (wall > 90){
+                window.matr.set(wall,'ebt');
+            }
+            if (wall % 10 == 0){
+                window.matr.set(wall,'elr');
+            }
+            if ((wall + 1)%10 == 0){
+                window.matr.set(wall,'erl');
+            }
+            translateMtoB(window.matr);
+        }
+    }
 }
 
 function increaseDifficulty(){
@@ -281,17 +196,26 @@ function increaseDifficulty(){
 
 function clock(){
     window.time = 0;
-    timeup();
+    window.diff   =  0;
+    window.en = new enemyController();
+    progressTime();
 }
 
-function timeup(){
+function progressTime(){
     console.log(window.time);
     window.time++;
-    setTimeout(timeup,33.3)
+    window.en.setAttackRandom();
+    setTimeout(progressTime,33.3)
 }
 
 //time 
 function soTheGameBegins(){
     //generate board
     borderWall();
+    // clock();
+
+}
+
+function andItEnds(){
+    alert();
 }

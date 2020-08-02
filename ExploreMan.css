@@ -86,3 +86,27 @@ body{
     /* display: block; */
     float: left;  
 }
+.oB10RightToLeft{
+    background-color: darkorchid;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left; 
+}
+.oB10TopToBottom{
+    background-color: darkseagreen;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left; 
+}
+.oB10BottomToTop{
+    background-color: darksalmon;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left; 
+}
