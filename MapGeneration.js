@@ -26,6 +26,36 @@ class matrixMax{
     set(id,state){
         this.matrix[id] = state;
     }
+    enemyShift(){
+        //read board and move enemies
+        /////order of checking merges, down,left,right
+        //down checks left right and up
+        //left checks right and up
+        //right checks up
+        // up wouldnt need to check because everyone before it has checked
+        for (let x = 0; x < 100; x++){
+            if (this.get(x) == 'elr'){
+                if ((x+2)%10 == 0){
+                    //set blank
+                    this.set(x,0);
+                    translateMtoB(this);
+                }
+                else if (this.get(x+1) == 'H'){
+                    andItEnds()
+                }
+                else if (x % 10 == 0){
+                    this.set(x,'v');
+                    this.set(x+1,'elr')
+                    translateMtoB(this);
+                }
+                else{
+                    this.set(x,0);
+                    this.set(x+1,'elr')
+                    translateMtoB(this);
+                }
+            }
+        }
+    }
 }
 
 function randomlyGenerateBoard(brdSize,distance){
@@ -204,15 +234,19 @@ function clock(){
 function progressTime(){
     console.log(window.time);
     window.time++;
-    window.en.setAttackRandom();
-    setTimeout(progressTime,33.3)
+    if (window.time == 3){
+        window.time = 0;
+        window.matr.enemyShift();
+        window.en.setAttackRandom();
+    }
+    setTimeout(progressTime,1000)
 }
 
 //time 
 function soTheGameBegins(){
     //generate board
     borderWall();
-    // clock();
+    clock();
 
 }
 
