@@ -114,6 +114,7 @@ class assistantMatrix{
         }
     }
     addEnemyTo(y,z){
+        if (this.matrix[y] == 'v'){}
         if (this.matrix[y] == 0){
             this.matrix[y] = z;
             return;
@@ -134,18 +135,25 @@ class assistantMatrix{
         this.matrix = m;
     }
     setToReal(){
+    let string = "rrl";
     for (let y = 0; y < 100; y++){
         if (this.matrix[y] == 'r'){
             window.matr.set(y,'elr');
         }
-        if (this.matrix[y] == 'l'){
+        else if (this.matrix[y] == 'l'){
             window.matr.set(y,'erl');
         }
-        if (this.matrix[y] == 't'){
+        else if (this.matrix[y] == 't'){
             window.matr.set(y,'etb');
         }
-        if (this.matrix[y] == 'b'){
+        else if (this.matrix[y] == 'b'){
             window.matr.set(y,'ebt');
+        }
+        else if (String(this.matrix[y]).includes('l') && String(this.matrix[y]).includes('r')){
+            window.matr.set(y,'mLR')
+        }
+        else if (String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('b')){
+            window.matr.set(y,'mTB')
         }
     }
     this.blanken();
@@ -179,6 +187,12 @@ function translateMtoB(m){
             }
             if (m.matrix[x] == 'etb'){
                 toWrite += "<div class='oB10TopToBottom' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mLR'){
+                toWrite += "<div class='eneLR' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mTB'){
+                toWrite += "<div class='eneTB' id='" + x + "'></div>";
             }
         }
         document.getElementById("omniBoard").innerHTML = toWrite;
@@ -287,14 +301,37 @@ function enemyShift(){
     //update to matrix checking
     let ender = false;
     for (let x = 100; x > 0; x--){
+        // MULTI
+        if (window.matr.get(x) == 'mLR'){
+            if ((x-1)%10 == 0){
+                if (window.matr.get(x+1) == 'H'){
+                    ender = true;
+                }
+                window.matr.set(x,'v');
+                window.assMax.addEnemyTo(x+1,'r');
+            }
+            else if ((x+2)%10 == 0){
+                window.matr.set(x,'v');
+                if (window.matr.get(x-1) == 'H'){
+                    ender = true;
+                }
+                window.assMax.addEnemyTo(x-1,'l');
+            }
+            else{
+                window.matr.set(x,'0');
+                window.assMax.addEnemyTo(x+1,'r');
+                window.assMax.addEnemyTo(x-1,'l');
+                if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+1) == 'H')){
+                    ender = true;
+                }
+            }
+        }
+        if (window.matr.get(x) == 'mTB'){
+            
+        }
         // if (window.matr.get(x) == 'elr'){
         //     if ((x+2)%10 == 0){
         //         window.matr.set(x,0);
-        //     }
-        //     else if ((window.matr.get(x+1) == 'H') && x % 10 == 0){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x+1,'r');
-        //         ender = true;
         //     }
         //     else if (window.matr.get(x+1) == 'H'){
         //         window.matr.set(x,0);
@@ -314,13 +351,13 @@ function enemyShift(){
         //     if ((x - 1) % 10 == 0){
         //         window.matr.set(x,0);
         //     }
-        //     else if ((window.matr.get(x-1) == 'H') && (x+1)%10 == 0 ){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x-1,'l');
-        //         ender = true;
-        //     }
         //     else if (window.matr.get(x-1) == 'H'){
-        //         window.matr.set(x,0);
+        //         if ((x+1)%10 == 0){
+        //             window.matr.set(x,'v');
+        //         }
+        //         else{
+        //             window.matr.set(x,0);
+        //         }
         //         window.assMax.addEnemyTo(x-1,'l');
         //         ender = true;
         //     }
@@ -333,37 +370,27 @@ function enemyShift(){
         //         window.assMax.addEnemyTo(x-1,'l');
         //     }
         // }
-        // if (window.matr.get(x) == 'etb'){
-        //     if (x > 80){
-        //         window.matr.set(x,0);
-        //     }
-        //     else if ((window.matr.get(x+10) == 'H') && x < 10){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x+10,'l');
-        //         ender = true;
-        //     }
-        //     else if (window.matr.get(x+10) == 'H'){
-        //         window.matr.set(x,0);
-        //         window.assMax.addEnemyTo(x+10,'t');
-        //         ender = true;
-        //     }
-        //     else if (x < 10 ){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x+10,'t');
-        //     }
-        //     else{
-        //         window.matr.set(x,0);
-        //         window.assMax.addEnemyTo(x+10,'t');
-        //     }
-        // }
+        if (window.matr.get(x) == 'etb'){
+            if (x > 80){
+                window.matr.set(x,0);
+            }
+            else if (window.matr.get(x+10) == 'H'){
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+10,'t');
+                ender = true;
+            }
+            else if (x < 10 ){
+                window.matr.set(x,'v');
+                window.assMax.addEnemyTo(x+10,'t');
+            }
+            else{
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+10,'t');
+            }
+        }
         if (window.matr.get(x) == 'ebt'){
             if (x < 20){
                 window.matr.set(x,0);
-            }
-            else if ((window.matr.get(x-10) == 'H') && x > 90){
-                window.matr.set(x,'v');
-                window.assMax.addEnemyTo(x+10,'b');
-                ender = true;
             }
             else if (window.matr.get(x-10) == 'H'){
                 window.matr.set(x,0);

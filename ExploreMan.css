@@ -58,7 +58,7 @@ body{
 }
 
 .oB10hero{
-    background-color: gold;
+    background-color: black;
     width: 68px;
     height: 68px;
     border: black 1px solid;
@@ -76,10 +76,26 @@ body{
 }
 
 
-
+/* MultiEnemies */
+.eneLR{
+    background-color: orange;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
+.eneTB{
+    background-color: lightblue;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    float: left;  
+}
 /* Enemies */
 .oB10LeftToRight{
-    background-color: darkcyan;
+    background-color: yellow;
     width: 68px;
     height: 68px;
     border: black 1px solid;
@@ -87,7 +103,7 @@ body{
     float: left;  
 }
 .oB10RightToLeft{
-    background-color: darkorchid;
+    background-color: red;
     width: 68px;
     height: 68px;
     border: black 1px solid;
@@ -95,7 +111,7 @@ body{
     float: left; 
 }
 .oB10TopToBottom{
-    background-color: darkseagreen;
+    background-color: blue;
     width: 68px;
     height: 68px;
     border: black 1px solid;
@@ -103,7 +119,7 @@ body{
     float: left; 
 }
 .oB10BottomToTop{
-    background-color: darksalmon;
+    background-color: white;
     width: 68px;
     height: 68px;
     border: black 1px solid;
