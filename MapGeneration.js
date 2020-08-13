@@ -1,4 +1,62 @@
-
+function moveHero(distance){
+    if (window.activeMap == false){
+        return false;
+    }
+    if ((distance != 1) && (distance != -1) && (distance != 10) && (distance != -10)){
+        return false;
+    }
+    if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) != 'v'    ){
+        //rewrite herospace and distance;
+        // console.log(distance);
+        window.matr.set(window.hero,'0');
+        window.hero -= 1;
+        let isEnemy = window.matr.isEnemy(window.hero);
+        if (isEnemy){
+            andItEnds();
+            return false;
+        }
+        window.matr.set(window.hero,'H');
+        translateMtoB(window.matr);
+        return true;
+    }
+    if ((distance == -10) && (window.hero >= 10)  && (window.matr.get(window.hero-10)) != 'v'){
+        window.matr.set(window.hero,'0');
+        window.hero -= 10;
+        let isEnemy = window.matr.isEnemy(window.hero);
+        if (isEnemy){
+            andItEnds();
+            return false;
+        }
+        window.matr.set(window.hero,'H');
+        translateMtoB(window.matr);
+        return true;
+    }
+    if ((distance == 1) && ((1 + window.hero) % 10 != 0) && (window.matr.get(window.hero+1)) != 'v'){
+        window.matr.set(window.hero,'0');
+        window.hero += 1;
+        let isEnemy = window.matr.isEnemy(window.hero);
+        if (isEnemy){
+            andItEnds();
+            return false;
+        }
+        window.matr.set(window.hero,'H');
+        translateMtoB(window.matr);
+        return true
+    }
+    if ((distance == 10) && (window.hero < 90) && (window.matr.get(window.hero+10)) != 'v'){
+        window.matr.set(window.hero,'0');
+        window.hero += 10;
+        let isEnemy = window.matr.isEnemy(window.hero);
+        if (isEnemy){
+            andItEnds();
+            return false;
+        }
+        window.matr.set(window.hero,'H');
+        translateMtoB(window.matr);
+        return true;
+        
+    }
+}
 
 class matrixMax{
     constructor(x){
@@ -26,11 +84,76 @@ class matrixMax{
     set(id,state){
         this.matrix[id] = state;
     }
+    isEnemy(x){
+        if (this.get(x) == 'elr'){
+            return true;
+        }
+        if (this.get(x) == 'erl'){
+            return true;
+        }
+        if (this.get(x) == 'etb'){
+            return true;
+        }
+        if (this.get(x) == 'ebt'){
+            return true;
+        }
+        return false;
+    }
+}
+class assistantMatrix{
+    constructor(){
+        this.matrix = [];
+        for (let y = 0; y < 100; y++){
+            let cpy = window.matr.get(y);
+            if (cpy == 'v' || cpy == 'H'){
+                this.matrix[y] == cpy;
+            }
+            else{
+                this.matrix[y] == 0;
+            }
+        }
+    }
+    addEnemyTo(y,z){
+        if (this.matrix[y] == 0){
+            this.matrix[y] = z;
+            return;
+        }
+        this.matrix[y] = this.matrix[y] + z;
+    }
+    //make the matrix blank
+    blanken(){
+        let m = [];
+        for (let y = 0; y < 100; y++){
+            if (y < 10 || y > 90 || y % 10 == 0 || (y+1)%10 == 0){
+                m.push('v');
+            }
+            else{
+                m.push(0);
+            }
+        }
+        this.matrix = m;
+    }
+    setToReal(){
+    for (let y = 0; y < 100; y++){
+        if (this.matrix[y] == 'r'){
+            window.matr.set(y,'elr');
+        }
+        if (this.matrix[y] == 'l'){
+            window.matr.set(y,'erl');
+        }
+        if (this.matrix[y] == 't'){
+            window.matr.set(y,'etb');
+        }
+        if (this.matrix[y] == 'b'){
+            window.matr.set(y,'ebt');
+        }
+    }
+    this.blanken();
+    translateMtoB(window.matr);
+    }
 }
 
-function randomlyGenerateBoard(brdSize,distance){
-
-}
+//////////Map Making
 
 function translateMtoB(m){
     if (m.matrix.length == 100){
@@ -65,7 +188,6 @@ function translateMtoB(m){
     }
 }
 
-//////////Map Making
 function borderWall(){
     let m = new matrixMax(10);
     for (let x = 0; x < 10; x++){
@@ -74,6 +196,7 @@ function borderWall(){
         m.set(x*10,'v');
         m.set(x*10+9,'v')
     }
+    window.activeMap = true;
     window.matr = m;
     randomizeHeroLocationBorderWall();
     translateMtoB(window.matr);
@@ -92,7 +215,6 @@ function randomizeHeroLocationBorderWall(){
 
 
 /////KEYPRESS
-
 function readKeyPress(x){
     let y = x.which || x.keyCode;
     console.log(y);
@@ -111,41 +233,7 @@ function readKeyPress(x){
     }
 }
 
-///////////////////HERO TRAVERSAL
-function moveHero(distance){
-    if (window.activeMap == false){
-        return false;
-    }
-    if ((distance != 1) && (distance != -1) && (distance != 10) && (distance != -10)){
-        return false;
-    }
-    if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) != 'v'    ){
-        //rewrite herospace and distance;
-        // console.log(distance);
-        window.matr.set(window.hero,'0');
-        window.hero -= 1;
-        window.matr.set(window.hero,'H');
-        translateMtoB(window.matr);
-    }
-    if ((distance == -10) && (window.hero >= 10)  && (window.matr.get(window.hero-10)) != 'v'){
-        window.matr.set(window.hero,'0');
-        window.hero -= 10;
-        window.matr.set(window.hero,'H');
-        translateMtoB(window.matr);
-    }
-    if ((distance == 1) && ((1 + window.hero) % 10 != 0) && (window.matr.get(window.hero+1)) != 'v'){
-        window.matr.set(window.hero,'0');
-        window.hero += 1;
-        window.matr.set(window.hero,'H');
-        translateMtoB(window.matr);
-    }
-    if ((distance == 10) && (window.hero < 90) && (window.matr.get(window.hero+10)) != 'v'){
-        window.matr.set(window.hero,'0');
-        window.hero += 10;
-        window.matr.set(window.hero,'H');
-        translateMtoB(window.matr);
-    }
-}
+
 
 ///enemy spawn
 
@@ -195,33 +283,107 @@ function enemyShift(){
     //left checks right and up
     //right checks up
     // up wouldnt need to check because everyone before it has checked
-    for (let x = 0; x < 100; x++){
-        if (window.matr.get(x) == 'elr'){
-            if ((x+2)%10 == 0){
-                //set blank
+
+    //update to matrix checking
+    let ender = false;
+    for (let x = 100; x > 0; x--){
+        // if (window.matr.get(x) == 'elr'){
+        //     if ((x+2)%10 == 0){
+        //         window.matr.set(x,0);
+        //     }
+        //     else if ((window.matr.get(x+1) == 'H') && x % 10 == 0){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x+1,'r');
+        //         ender = true;
+        //     }
+        //     else if (window.matr.get(x+1) == 'H'){
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x+1,'r');
+        //         ender = true;
+        //     }
+        //     else if (x % 10 == 0){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x+1,'r');
+        //     }
+        //     else{
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x+1,'r');
+        //     }
+        // }
+        // if (window.matr.get(x) == 'erl'){
+        //     if ((x - 1) % 10 == 0){
+        //         window.matr.set(x,0);
+        //     }
+        //     else if ((window.matr.get(x-1) == 'H') && (x+1)%10 == 0 ){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x-1,'l');
+        //         ender = true;
+        //     }
+        //     else if (window.matr.get(x-1) == 'H'){
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x-1,'l');
+        //         ender = true;
+        //     }
+        //     else if ((x+1)%10 == 0 ){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x-1,'l');
+        //     }
+        //     else{
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x-1,'l');
+        //     }
+        // }
+        // if (window.matr.get(x) == 'etb'){
+        //     if (x > 80){
+        //         window.matr.set(x,0);
+        //     }
+        //     else if ((window.matr.get(x+10) == 'H') && x < 10){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x+10,'l');
+        //         ender = true;
+        //     }
+        //     else if (window.matr.get(x+10) == 'H'){
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x+10,'t');
+        //         ender = true;
+        //     }
+        //     else if (x < 10 ){
+        //         window.matr.set(x,'v');
+        //         window.assMax.addEnemyTo(x+10,'t');
+        //     }
+        //     else{
+        //         window.matr.set(x,0);
+        //         window.assMax.addEnemyTo(x+10,'t');
+        //     }
+        // }
+        if (window.matr.get(x) == 'ebt'){
+            if (x < 20){
                 window.matr.set(x,0);
-                translateMtoB(window.matr);
             }
-            else if (window.matr.get(x+1) == 'H'){
-                andItEnds()
-            }
-            else if (x % 10 == 0){
+            else if ((window.matr.get(x-10) == 'H') && x > 90){
                 window.matr.set(x,'v');
-                window.matr.set(x+1,'elr')
-                translateMtoB(window.matr);
+                window.assMax.addEnemyTo(x+10,'b');
+                ender = true;
+            }
+            else if (window.matr.get(x-10) == 'H'){
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x-10,'b');
+                ender = true;
+            }
+            else if (x > 90){
+                window.matr.set(x,'v');
+                window.assMax.addEnemyTo(x-10,'b');
             }
             else{
                 window.matr.set(x,0);
-                window.matr.set(x+1,'elr')
-                translateMtoB(window.matr);
+                window.assMax.addEnemyTo(x-10,'b'); 
             }
         }
     }
-}
-
-
-function increaseDifficulty(){
-    //increase tempo speed and enemy variety?
+    window.assMax.setToReal();
+    if (ender){
+        andItEnds();
+    }
 }
 
 //////////////////
@@ -234,6 +396,9 @@ function clock(){
 }
 
 function progressTime(){
+    if (!window.activeMap){
+        return false;
+    }
     console.log(window.time);
     window.time++;
     if (window.time == 3){
@@ -241,17 +406,20 @@ function progressTime(){
         enemyShift();
         window.en.setAttackRandom();
     }
-    setTimeout(progressTime,1000)
+    setTimeout(progressTime,33)
 }
 
 //time 
 function soTheGameBegins(){
     //generate board
     borderWall();
+    window.assMax = new assistantMatrix();
     clock();
 
 }
 
 function andItEnds(){
-    alert();
+    translateMtoB(window.matr);
+    window.activeMap = false;
+    alert("Over");
 }
