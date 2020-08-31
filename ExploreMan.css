@@ -63,6 +63,10 @@ body{
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    color: white;
     float: left;  
 }
 
@@ -77,20 +81,128 @@ body{
 
 
 /* MultiEnemies */
-.eneLR{
-    background-color: orange;
+.eneLRT{
+    background-color: brown;
     width: 68px;
     height: 68px;
     border: black 1px solid;
     /* display: block; */
-    float: left;  
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
 }
+.eneLRB{
+    background-color: #fed8b1;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;    
+}
+.eneRTB{
+    background-color: #fed8b1;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+.eneLRTB{
+    background-color: wheat;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+
+.eneLTB{
+    background-color: #b19cd9;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+
+
 .eneTB{
     background-color: lightblue;
     width: 68px;
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneTL{
+    background-color: purple;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneTR{
+    background-color: green;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+.eneLB{
+    background-color: pink;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneRB{
+    background-color: lightyellow;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneLR{
+    background-color: orange;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left;  
 }
 /* Enemies */
@@ -100,6 +212,9 @@ body{
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left;  
 }
 .oB10RightToLeft{
@@ -108,6 +223,9 @@ body{
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left; 
 }
 .oB10TopToBottom{
@@ -116,6 +234,9 @@ body{
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left; 
 }
 .oB10BottomToTop{
@@ -124,5 +245,8 @@ body{
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left; 
 }

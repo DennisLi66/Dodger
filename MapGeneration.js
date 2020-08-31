@@ -5,6 +5,9 @@ function moveHero(distance){
     if ((distance != 1) && (distance != -1) && (distance != 10) && (distance != -10)){
         return false;
     }
+    if ((window.hero+distance < 10)||(window.hero+distance > 89) || ((window.hero+distance) % 10 == 0) || ((window.hero+distance) % 10 == 9)){
+        return false;
+    }
     if ((distance == -1 ) && (window.hero % 10 != 0)   && (window.matr.get(window.hero-1)) != 'v'    ){
         //rewrite herospace and distance;
         // console.log(distance);
@@ -57,7 +60,6 @@ function moveHero(distance){
         
     }
 }
-
 class matrixMax{
     constructor(x){
         this.matrix = [];
@@ -135,7 +137,6 @@ class assistantMatrix{
         this.matrix = m;
     }
     setToReal(){
-    let string = "rrl";
     for (let y = 0; y < 100; y++){
         if (this.matrix[y] == 'r'){
             window.matr.set(y,'elr');
@@ -149,11 +150,48 @@ class assistantMatrix{
         else if (this.matrix[y] == 'b'){
             window.matr.set(y,'ebt');
         }
+        else if (String(this.matrix[y]).includes('l') && String(this.matrix[y]).includes('r') && String(this.matrix[y]).includes('t')){
+            window.matr.set(y,'mLRT')
+        }
         else if (String(this.matrix[y]).includes('l') && String(this.matrix[y]).includes('r')){
             window.matr.set(y,'mLR')
         }
         else if (String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('b')){
             window.matr.set(y,'mTB')
+        }
+        else if (String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('l')){
+            window.matr.set(y,'mTL')
+        }
+        else if (String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('r')){
+            window.matr.set(y,'mTR')
+        }
+        else if (String(this.matrix[y]).includes('l') && String(this.matrix[y]).includes('b')){
+            window.matr.set(y,'mLB')
+        }
+        else if (String(this.matrix[y]).includes('r') && String(this.matrix[y]).includes('b')){
+            window.matr.set(y,'mRB')
+        }
+        ///trio
+        else if (String(this.matrix[y]).includes('b') 
+        && String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('l')){
+            window.matr.set(y,'mLTB');
+        }
+        else if (String(this.matrix[y]).includes('r') 
+        && String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('l')){
+            window.matr.set(y,'mLRT');
+        }
+        else if (String(this.matrix[y]).includes('r') && String(this.matrix[y]).includes('b') 
+        && String(this.matrix[y]).includes('l')){
+            window.matr.set(y,'mLRB');
+        }
+        else if (String(this.matrix[y]).includes('r') && String(this.matrix[y]).includes('b') 
+        && String(this.matrix[y]).includes('t')){
+            window.matr.set(y,'mRTB');
+        }
+        //full
+        else if (String(this.matrix[y]).includes('r') && String(this.matrix[y]).includes('b') 
+        && String(this.matrix[y]).includes('t') && String(this.matrix[y]).includes('l')){
+            window.matr.set(y,'mLRTB');
         }
     }
     this.blanken();
@@ -162,7 +200,6 @@ class assistantMatrix{
 }
 
 //////////Map Making
-
 function translateMtoB(m){
     if (m.matrix.length == 100){
         let toWrite = "";
@@ -171,28 +208,55 @@ function translateMtoB(m){
                 toWrite += "<div class='oB10' id='" + x + "'></div>";
             }
             if (m.matrix[x] == 'H'){
-                toWrite += "<div class='oB10hero' id='" + x + "'></div>";
+                toWrite += "<div class='oB10hero' id='" + x + "'>You</div>";
             }
             if (m.matrix[x] == 'v'){
                 toWrite += "<div class='oB10heroMovementRange' id='" + x + "'></div>";
             }
             if (m.matrix[x] == 'elr'){
-                toWrite += "<div class='oB10LeftToRight' id='" + x + "'></div>";
+                toWrite += "<div class='oB10LeftToRight' id='" + x + "'>></div>";
             }
             if (m.matrix[x] == 'erl'){
-                toWrite += "<div class='oB10RightToLeft' id='" + x + "'></div>";
+                toWrite += "<div class='oB10RightToLeft' id='" + x + "'><</div>";
             }
             if (m.matrix[x] == 'ebt'){
-                toWrite += "<div class='oB10BottomToTop' id='" + x + "'></div>";
+                toWrite += "<div class='oB10BottomToTop' id='" + x + "'>^</div>";
             }
             if (m.matrix[x] == 'etb'){
-                toWrite += "<div class='oB10TopToBottom' id='" + x + "'></div>";
+                toWrite += "<div class='oB10TopToBottom' id='" + x + "'>V</div>";
             }
             if (m.matrix[x] == 'mLR'){
-                toWrite += "<div class='eneLR' id='" + x + "'></div>";
+                toWrite += "<div class='eneLR' id='" + x + "'><></div>";
             }
             if (m.matrix[x] == 'mTB'){
-                toWrite += "<div class='eneTB' id='" + x + "'></div>";
+                toWrite += "<div class='eneTB' id='" + x + "'>^<br>V</div>";
+            }
+            if (m.matrix[x] == 'mTL'){
+                toWrite += "<div class='eneTL' id='" + x + "'><<br> V</div>";
+            }
+            if (m.matrix[x] == 'mTR'){
+                toWrite += "<div class='eneTR' id='" + x + "'> ><br>V</div>";
+            }
+            if (m.matrix[x] == 'mLB'){
+                toWrite += "<div class='eneLB' id='" + x + "'><<br>^</div>";
+            }
+            if (m.matrix[x] == 'mRB'){
+                toWrite += "<div class='eneRB' id='" + x + "'>><br>^</div>";
+            }
+            if (m.matrix[x] == 'mLRT'){
+                toWrite += "<div class='eneLRT' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mLRTB'){
+                toWrite += "<div class='eneLRTB' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mLRB'){
+                toWrite += "<div class='eneLRB' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mRTB'){
+                toWrite += "<div class='eneRTB' id='" + x + "'></div>";
+            }
+            if (m.matrix[x] == 'mLTB'){
+                toWrite += "<div class='eneLTB' id='" + x + "'></div>";
             }
         }
         document.getElementById("omniBoard").innerHTML = toWrite;
@@ -215,7 +279,6 @@ function borderWall(){
     randomizeHeroLocationBorderWall();
     translateMtoB(window.matr);
 }
-
 function randomizeHeroLocationBorderWall(){
     while (true){
         let space = Math.floor(Math.random() * Math.floor(100));
@@ -226,8 +289,6 @@ function randomizeHeroLocationBorderWall(){
         }
     }
 }
-
-
 /////KEYPRESS
 function readKeyPress(x){
     let y = x.which || x.keyCode;
@@ -246,11 +307,7 @@ function readKeyPress(x){
         moveHero(10);
     }
 }
-
-
-
 ///enemy spawn
-
 class enemyController{
     constructor(){
         this.library = [0];
@@ -289,87 +346,149 @@ class enemyController{
         }
     }
 }
-
 function enemyShift(){
     //read board and move enemies
-    /////order of checking merges, down,left,right
-    //down checks left right and up
-    //left checks right and up
-    //right checks up
-    // up wouldnt need to check because everyone before it has checked
-
-    //update to matrix checking
     let ender = false;
     for (let x = 100; x > 0; x--){
-        // MULTI
+        //FULL 
+        if (window.matr.get(x) == 'mLRTB'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x+1,'r');
+            window.assMax.addEnemyTo(x-1,'l');
+            window.assMax.addEnemyTo(x+10,'t');
+            window.assMax.addEnemyTo(x-10,'b');
+            if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+1) == 'H') || (window.matr.get(x+10) == 'H')|| (window.matr.get(x-10) == 'H')){
+                ender = true;
+            }
+        }
+        //TRIO
+        if (window.matr.get(x) == 'mLRT'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x+1,'r');
+            window.assMax.addEnemyTo(x-1,'l');
+            window.assMax.addEnemyTo(x+10,'t');
+            if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+1) == 'H') || (window.matr.get(x+10) == 'H')){
+                ender = true;
+            }
+        }
+        if (window.matr.get(x) == 'mLRB'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x+1,'r');
+            window.assMax.addEnemyTo(x-1,'l');
+            window.assMax.addEnemyTo(x-10,'b');
+            if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+1) == 'H') || (window.matr.get(x-10) == 'H')){
+                ender = true;
+            }
+        }
+        if (window.matr.get(x) == 'mLTB'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x-1,'l');
+            window.assMax.addEnemyTo(x+10,'t');
+            window.assMax.addEnemyTo(x-10,'b');
+            if ((window.matr.get(x-10) == 'H') || (window.matr.get(x+1) == 'H') || (window.matr.get(x+10) == 'H')){
+                ender = true;
+            }
+        }
+        if (window.matr.get(x) == 'mRTB'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x+1,'r');
+            window.assMax.addEnemyTo(x-10,'b');
+            window.assMax.addEnemyTo(x+10,'t');
+            if ((window.matr.get(x+1) == 'H') || (window.matr.get(x-10) == 'H') || (window.matr.get(x+10) == 'H')){
+                ender = true;
+            }
+        }
+        // DUO
         if (window.matr.get(x) == 'mLR'){
-            if ((x-1)%10 == 0){
-                if (window.matr.get(x+1) == 'H'){
-                    ender = true;
-                }
-                window.matr.set(x,'v');
-                window.assMax.addEnemyTo(x+1,'r');
-            }
-            else if ((x+2)%10 == 0){
-                window.matr.set(x,'v');
-                if (window.matr.get(x-1) == 'H'){
-                    ender = true;
-                }
-                window.assMax.addEnemyTo(x-1,'l');
-            }
-            else{
-                window.matr.set(x,'0');
+                window.matr.set(x,0);
                 window.assMax.addEnemyTo(x+1,'r');
                 window.assMax.addEnemyTo(x-1,'l');
                 if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+1) == 'H')){
                     ender = true;
                 }
-            }
         }
         if (window.matr.get(x) == 'mTB'){
-            
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+10,'t');
+                window.assMax.addEnemyTo(x-10,'b');
+                if ((window.matr.get(x-10) == 'H') || (window.matr.get(x+10) == 'H')){
+                    ender = true;
+                }
         }
-        // if (window.matr.get(x) == 'elr'){
-        //     if ((x+2)%10 == 0){
-        //         window.matr.set(x,0);
-        //     }
-        //     else if (window.matr.get(x+1) == 'H'){
-        //         window.matr.set(x,0);
-        //         window.assMax.addEnemyTo(x+1,'r');
-        //         ender = true;
-        //     }
-        //     else if (x % 10 == 0){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x+1,'r');
-        //     }
-        //     else{
-        //         window.matr.set(x,0);
-        //         window.assMax.addEnemyTo(x+1,'r');
-        //     }
-        // }
-        // if (window.matr.get(x) == 'erl'){
-        //     if ((x - 1) % 10 == 0){
-        //         window.matr.set(x,0);
-        //     }
-        //     else if (window.matr.get(x-1) == 'H'){
-        //         if ((x+1)%10 == 0){
-        //             window.matr.set(x,'v');
-        //         }
-        //         else{
-        //             window.matr.set(x,0);
-        //         }
-        //         window.assMax.addEnemyTo(x-1,'l');
-        //         ender = true;
-        //     }
-        //     else if ((x+1)%10 == 0 ){
-        //         window.matr.set(x,'v');
-        //         window.assMax.addEnemyTo(x-1,'l');
-        //     }
-        //     else{
-        //         window.matr.set(x,0);
-        //         window.assMax.addEnemyTo(x-1,'l');
-        //     }
-        // }
+        if (window.matr.get(x) == 'mTL'){
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+10,'t');
+                window.assMax.addEnemyTo(x-1,'l');
+                if ((window.matr.get(x-1) == 'H') || (window.matr.get(x+10) == 'H')){
+                    ender = true;
+                }
+        }
+        if (window.matr.get(x) == 'mTR'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x+10,'t');
+            window.assMax.addEnemyTo(x+1,'r');
+            if ((window.matr.get(x+1) == 'H') || (window.matr.get(x+10) == 'H')){
+                ender = true;
+            }
+        }
+        if (window.matr.get(x) == 'mLB'){
+            window.matr.set(x,0);
+            window.assMax.addEnemyTo(x-10,'b');
+            window.assMax.addEnemyTo(x-1,'l');
+            if ((window.matr.get(x-1) == 'H') || (window.matr.get(x-10) == 'H')){
+                ender = true;
+            }
+        }
+        if (window.matr.get(x) == 'mRB'){
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x-10,'b');
+                window.assMax.addEnemyTo(x+1,'r');
+                if ((window.matr.get(x+1) == 'H') || (window.matr.get(x-10) == 'H')){
+                    ender = true;
+                }
+        }
+        //////////////
+        if (window.matr.get(x) == 'elr'){
+            if ((x+2)%10 == 0){
+                window.matr.set(x,0);
+            }
+            else if (window.matr.get(x+1) == 'H'){
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+1,'r');
+                ender = true;
+            }
+            else if (x % 10 == 0){
+                window.matr.set(x,'v');
+                window.assMax.addEnemyTo(x+1,'r');
+            }
+            else{
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x+1,'r');
+            }
+        }
+        if (window.matr.get(x) == 'erl'){
+            if ((x - 1) % 10 == 0){
+                window.matr.set(x,0);
+            }
+            else if (window.matr.get(x-1) == 'H'){
+                if ((x+1)%10 == 0){
+                    window.matr.set(x,'v');
+                }
+                else{
+                    window.matr.set(x,0);
+                }
+                window.assMax.addEnemyTo(x-1,'l');
+                ender = true;
+            }
+            else if ((x+1)%10 == 0 ){
+                window.matr.set(x,'v');
+                window.assMax.addEnemyTo(x-1,'l');
+            }
+            else{
+                window.matr.set(x,0);
+                window.assMax.addEnemyTo(x-1,'l');
+            }
+        }
         if (window.matr.get(x) == 'etb'){
             if (x > 80){
                 window.matr.set(x,0);
@@ -412,41 +531,35 @@ function enemyShift(){
         andItEnds();
     }
 }
-
 //////////////////
-
 function clock(){
     window.time = 0;
-    window.diff   =  0;
+    window.diff =  0;
     window.en = new enemyController();
     progressTime();
 }
-
 function progressTime(){
     if (!window.activeMap){
         return false;
     }
-    console.log(window.time);
+    //console.log(window.time);
     window.time++;
     if (window.time == 3){
         window.time = 0;
         enemyShift();
         window.en.setAttackRandom();
     }
-    setTimeout(progressTime,33)
+    setTimeout(progressTime,200)
 }
-
 //time 
 function soTheGameBegins(){
     //generate board
     borderWall();
     window.assMax = new assistantMatrix();
     clock();
-
 }
-
 function andItEnds(){
     translateMtoB(window.matr);
     window.activeMap = false;
-    alert("Over");
+    alert("Over " + window.hero);
 }
