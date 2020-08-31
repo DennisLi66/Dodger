@@ -25,7 +25,7 @@ body{
     top: 50px;
     height: 700px;
     width: 350px;
-    right: 50px;
+    left: 1100px;
     border: black 1px solid;  
 }
 #charPortrait{
@@ -58,7 +58,20 @@ body{
 }
 
 .oB10hero{
-    background-color: gold;
+    background-color: black;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    color: white;
+    float: left;  
+}
+
+.oB10heroMovementRange{
+    background-color: grey;
     width: 68px;
     height: 68px;
     border: black 1px solid;
@@ -66,11 +79,174 @@ body{
     float: left;  
 }
 
-.oB10heroMovementRange{
-    background-color: #ccff99;
+
+/* MultiEnemies */
+.eneLRT{
+    background-color: brown;
     width: 68px;
     height: 68px;
     border: black 1px solid;
     /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+.eneLRB{
+    background-color: #fed8b1;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;    
+}
+.eneRTB{
+    background-color: #fed8b1;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+.eneLRTB{
+    background-color: wheat;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+
+.eneLTB{
+    background-color: #b19cd9;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+
+
+.eneTB{
+    background-color: lightblue;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
     float: left;  
+}
+.eneTL{
+    background-color: purple;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneTR{
+    background-color: green;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;   
+}
+.eneLB{
+    background-color: pink;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneRB{
+    background-color: lightyellow;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.eneLR{
+    background-color: orange;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+/* Enemies */
+.oB10LeftToRight{
+    background-color: yellow;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left;  
+}
+.oB10RightToLeft{
+    background-color: red;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left; 
+}
+.oB10TopToBottom{
+    background-color: blue;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left; 
+}
+.oB10BottomToTop{
+    background-color: white;
+    width: 68px;
+    height: 68px;
+    border: black 1px solid;
+    /* display: block; */
+    text-align: center;
+    font-family: Cambria;
+    font-size: xx-large;
+    float: left; 
 }
